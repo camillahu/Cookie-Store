@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <Style>
+
+        body{
+            background-color: rgb(221, 165, 221);
+        }
+        .mainDiv{
+            display: grid;
+            grid-template-rows: repeat(5,1fr);
+            border: solid 10px rgb(237, 208, 183);
+            height: 150px;
+            width: 300px;
+            margin: 10px;
+        }
+        .mainDiv > div{
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            padding-left: 15px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .cookieTypeDiv {
+            font-weight: bold;
+            
+        }
+        .priceDiv {
+            font-weight: bold;
+        }
+            
+        .pictureDiv {
+            width: 50px;
+            float: right;
+            position: fixed;      
+          }
+        
+            
+        
+        .specificCookie {
+            background-color: rgb(172, 123, 195);
+            border-color: rgb(56, 30, 80);
+            border-style: d;
+        }
+    </Style>
+
+</head>
+<body>
+
+ 
+
+    <div id="app"></div>
+
+    <script>
+
+        /*3 forskjellige cookies
+        hver cookie har 3 relaterte detaljer
+        1 array med 3 cookies i, der hver av cookiesene er et eget objekt 
+        første linje er navn på cookie, pris, farge, filling*/
+
+        //Model
+        let cookieType = '';
+        let cookieFlavor = '';
+        let cookieFilling = '';
+        let cookieTexture = '';
+        let cookiePrice = '';
+        let cookiePicture = '';
+        
+        let chocolateChipCookie = {
+            cookieName    : 'Chocolate chip cookie',
+            cookieFlavor : 'Vanilla and chocolate',
+            cookieFilling : 'Chocolate',
+            cookieTexture : 'Gooey',
+            cookiePrice   : 30,
+            cookiePicture : '<img src="chocolate chip cookie.png">',
+        }
+
+        let strawberryCookie = {
+            cookieName    : 'Strawberry cookie',
+            cookieFlavor : 'Strawberry shortcake',
+            cookieFilling    : 'Strawberry puree',
+            cookieTexture : 'Crunchy outside, gooey core',
+            cookiePrice   : 50,
+            cookiePicture : `<img src="strawberry cookie.png">`,
+        };
+
+        let pistachioCookie = {
+            cookieName    : 'Pistachio cookie',
+            cookieFlavor : 'Pistachio',
+            cookieFilling : 'Chocolate',
+            cookieTexture : 'Crunchy',
+            cookiePrice   :  65,
+            cookiePicture : '<img src="pistachio cookie.png">',
+        };
+        
+        let cookies= [chocolateChipCookie, strawberryCookie, pistachioCookie];
+        
+    
+
+        //View
+        showDisplay();
+        function showDisplay(){
+            document.getElementById('app').innerHTML = /*HTML*/`
+                <div class="mainDiv">
+
+                    <div class="cookieTypeDiv">${cookieType}</div>
+                    <div>Flavor: ${cookieFlavor}</div>
+                    <div>Filling: ${cookieFilling}</div>
+                    <div>Texture: ${cookieTexture}</div>
+                    <div class="priceDiv">${cookiePrice}kr</div>
+                    
+                    
+                    </div>
+
+                    <button class="specificCookie" onclick="createCookieDisplay(chocolateChipCookie)">Show Chocolate-Chip Cookie</button>
+                    <button class="specificCookie" onclick="createCookieDisplay(strawberryCookie)">Show Strawberry Cookie</button>
+                    <button class="specificCookie" onclick="createCookieDisplay(pistachioCookie)">Show Pistachio Cookie</button>
+                <div class="pictureDiv">${cookiePicture}</div>
+            
+            `
+        }
+
+        function createCookieDisplay(selectedCookie) { //ctrl + D
+            if (selectedCookie == chocolateChipCookie || selectedCookie == strawberryCookie || selectedCookie == pistachioCookie) {
+                cookieType = selectedCookie.cookieName;
+                cookieFlavor = selectedCookie.cookieFlavor;
+                cookieFilling = selectedCookie.cookieFilling;
+                cookieTexture = selectedCookie.cookieTexture;
+                cookiePrice = selectedCookie.cookiePrice;
+                cookiePicture = selectedCookie.cookiePicture;
+             }
+            showDisplay();
+        }
+
+        
+
+        //Controller
+
+        function calculatePrice() {
+
+
+    }
+
+
+        
+
+        /*
+
+Certainly! Here's an even simpler assignment in JavaScript:
+
+Assignment: Cookie Creation
+
+Create a simple JavaScript program to represent cookies.
+
+Tasks:
+
+Create a Cookie object:
+
+Define a JavaScript object named Cookie.
+Include properties for flavor and price.
+Create instances of the Cookie object:
+
+Instantiate at least two Cookie objects with different flavors and prices.
+Display the details:
+
+Print the details (flavor and price) of each cookie to the console.
+Here's a basic template to get you started:
+
+Ideer:
+
+add to cart funksjon (legge til og trekke fra arrays)
+
+show cart funksjon (loop)
+
+create your own cookie
+- legge på bilder og pris 
+
+get random cookie
+- randomize alle ting som kan puttes på og topping/filling
+
+
+
+
+
+
+*/
+    </script>
+</body>
+</html>

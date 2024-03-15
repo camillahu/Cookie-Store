@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <Style>
+
+        body{
+            background-color: rgb(221, 165, 221);
+        }
+        .cookieDisplayDiv{
+            display: grid;
+            grid-template-rows: repeat(5,1fr);
+            border: solid 10px rgb(237, 208, 183);
+            height: 150px;
+            width: 300px;
+            margin: 10px;
+        }
+        .cookieDisplayDiv > div{
+            display: flex;
+            margin-left: 5px;
+            align-items: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .cookieNameDiv {
+            font-weight: bold;
+            
+        }
+        .cookiePriceDiv {
+            font-weight: bold;
+        }
+            
+        .pictureDiv {
+            width: 50px;
+            float: right;
+            position: fixed;      
+          }
+        
+        .specificCookie {
+            background-color: rgb(172, 123, 195);
+            border-color: rgb(56, 30, 80);
+            border-style: d;
+        }
+    </Style>
+
+</head>
+<body>
+
+ 
+
+    <div id="app"></div>
+
+    <script>
+
+        /*3 forskjellige cookies
+        hver cookie har 3 relaterte detaljer
+        1 array med 3 cookies i, der hver av cookiesene er et eget objekt 
+        første linje er navn på cookie, pris, farge, filling*/
+
+        /*kjøpefunksjon
+        wallet
+        display cookie først, så kan man trykke på en "kjøp" knapp
+        bought items liste/array som viser hva man har kjøpt og antall kjøpt.
+        temporary money spent variabel
+        money spent variabel*/
+
+        //Model
+
+        //chocolateChipCookie[i].cookieName
+
+        let cookies = [
+            
+            chocolateChipCookie = {
+            name   : 'Chocolate chip cookie',
+            flavor : 'Vanilla and chocolate',
+            filling : 'Chocolate',
+            texture : 'Gooey',
+            price   : 30,
+            picture : '<img src="chocolate chip cookie.png">'
+            },
+            strawberryCookie = {
+            name    : 'Strawberry cookie',
+            flavor : 'Strawberry shortcake',
+            filling    : 'Strawberry puree',
+            texture : 'Crunchy outside, gooey core',
+            price   : 50,
+            picture : `<img src="strawberry cookie.png">`
+            },
+            pistachioCookie = {   
+            name    : 'Pistachio cookie',
+            flavor  : 'Pistachio',
+            filling : 'Chocolate',
+            texture : 'Crunchy',
+            price   :  65,
+            picture : '<img src="pistachio cookie.png">', 
+            },
+        ]
+
+        
+        let tempMoneySpent = 0; //variabel for før du har kjøpt noe, som senere kan kobles opp til en handlekurv-liste
+        let moneySpent = 0; //variabel som vi skal bruke for å kalkulere hvor mye som er i wallet etter kjøp ?
+        let wallet = 150; //  penger du har å bruke
+        let chosenCookie = 0; 
+        //View
+        showDisplay();
+        function showDisplay(){
+            document.getElementById('app').innerHTML = /*HTML*/`
+                
+                <div class= "cookieDisplayDiv">${createCookieDisplay()}</div>
+                    
+                    <button class="specificCookie" onclick="changeCookie(0)">Show Chocolate-Chip Cookie</button>
+                    <button class="specificCookie" onclick="changeCookie(1)">Show Strawberry Cookie</button>
+                    <button class="specificCookie" onclick="changeCookie(2)">Show Pistachio Cookie</button>
+                <div class="pictureDiv"></div>
+            
+            `
+        }
+
+        function createCookieDisplay() { //ctrl + D
+            let html = '';
+            
+            // for (let i=0; i< cookies.length; i++)
+            
+             html += `<div class="cookieNameDiv">${cookies[chosenCookie].name}</div>
+                       <div>Flavor: ${cookies[chosenCookie].flavor}</div>
+                       <div>Filling: ${cookies[chosenCookie].filling}</div>
+                       <div>Texture: ${cookies[chosenCookie].texture}</div>
+                       <div class="cookiePriceDiv">${cookies[chosenCookie].price}kr</div>`
+            
+            return html;
+        };
+
+        function changeCookie(cookieId){
+            chosenCookie=cookieId
+            showDisplay();
+        }
+        //Controller
+
+        
+
+        /*
+
+
+
+Ideer:
+
+add to cart funksjon (legge til og trekke fra arrays)
+
+show cart funksjon (loop)
+
+create your own cookie
+- legge på bilder og pris 
+
+get random cookie
+- randomize alle ting som kan puttes på og topping/filling
+
+
+cookie chomp function!!!
+Challenge fra Marius: tegne buttons basert på array i en loop
+
+*/
+
+
+    </script>
+</body>
+</html>
+

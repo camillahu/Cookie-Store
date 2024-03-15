@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <Style>
+
+        body{
+            background-color: rgb(221, 165, 221);
+        }
+        .cookieDisplayDiv{
+            display: grid;
+            grid-template-rows: repeat(5,1fr);
+            border: solid 10px rgb(237, 208, 183);
+            height: 150px;
+            width: 300px;
+            margin: 10px;
+        }
+        .cookieDisplayDiv > div{
+            display: flex;
+            margin-left: 5px;
+            align-items: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .cookieNameDiv {
+            font-weight: bold;
+            
+        }
+        .cookiePriceDiv {
+            font-weight: bold;
+        }
+            
+        .pictureDiv {
+            width: 50px;
+            float: right;
+            position: fixed;      
+          }
+        
+        .specificCookie {
+            background-color: rgb(172, 123, 195);
+            border-color: rgb(56, 30, 80);
+            border-style: d;
+        }
+        .hideInputDisplay {
+            display: none;
+        }
+        .showInputDisplay  {
+            display: block; 
+        }
+        .createNewCookieBtn {
+            margin-top: 10px;
+            background-color: rgb(172, 123, 195);
+            border-color: rgb(56, 30, 80);
+            border-style: d;
+        }
+     
+    </Style>
+
+</head>
+<body>
+
+ 
+
+    <div id="app"></div>
+
+    <script>
+
+        let cookies = [  //cookies array, inneholder 3 objeckter og deres data
+            
+            {  //0
+            name   : 'Chocolate chip cookie',
+            flavor : 'Vanilla and chocolate',
+            filling : 'Chocolate',
+            texture : 'Gooey',
+            price   : 30,
+            picture : '<img src="chocolate chip cookie.png">'
+            },
+
+            { //1
+            name    : 'Strawberry cookie',
+            flavor : 'Strawberry shortcake',
+            filling    : 'Strawberry puree',
+            texture : 'Crunchy outside, gooey core',
+            price   : 50,
+            picture : `<img src="strawberry cookie.png">`
+            },
+            
+            {  //2
+            name    : 'Pistachio cookie',
+            flavor  : 'Pistachio',
+            filling : 'Chocolate',
+            texture : 'Crunchy',
+            price   :  65,
+            picture : '<img src="pistachio cookie.png">', 
+            },
+        ]
+        
+        let cookieBtns = [ // button 0, 1 og 2 + eventuelle nye buttons
+        `<button class="specificCookie" onclick="changeCookie(0)">Show Chocolate-Chip Cookie</button>`,
+        `<button class="specificCookie" onclick="changeCookie(1)">Show Strawberry Cookie</button>`,
+        `<button class="specificCookie" onclick="changeCookie(2)">Show Pistachio Cookie</button> `,
+            
+        ]
+        
+        let tempMoneySpent = 0; //variabel for før du har kjøpt noe, som senere kan kobles opp til en handlekurv-liste
+        let wallet = 150; //  penger du har å bruke
+        
+        let chosenCookie = 0; //variabel som brukes for å vise den valgte cookien, brukes i createCookieDisplay og changeCookie
+
+        let currentInput = '';
+        let newCookieInfo = {
+            name   : '',
+            flavor : '',
+            filling : '',
+            texture : '',
+            price   : 0,
+        }
+
+        //View
+        showDisplay();
+        function showDisplay(){
+            document.getElementById('app').innerHTML = /*HTML*/`
+                
+                <div class= "cookieDisplayDiv">${createCookieDisplay()}</div>
+                <div>${createBtnDisplay()}</div>   <!--argmnt "2", index 2 i cookie array-->
+                <button class='createNewCookieBtn' onclick="showCookieInput()">Toggle create new cookie</button>
+                <div>${currentInput}</div>
+            `        
+        }
+
+        function createCookieDisplay() { //ctrl + D
+            let cDHtml = ''; // for (let i=0; i< cookies.length; i++)
+            
+             cDHtml += `<div class="cookieNameDiv">${cookies[chosenCookie].name}</div>
+                       <div>Flavor: ${cookies[chosenCookie].flavor}</div>
+                       <div>Filling: ${cookies[chosenCookie].filling}</div>
+                       <div>Texture: ${cookies[chosenCookie].texture}</div>
+                       <div class="cookiePriceDiv">${cookies[chosenCookie].price}kr</div>`
+            
+            return cDHtml;
+        };
+
+        function createBtnDisplay () {
+            let buttonDisplay= '';
+            
+            for(let i = 0; i < cookieBtns.length; i++ ) {
+                buttonDisplay += cookieBtns[i];
+
+            } return buttonDisplay;
+            showDisplay();
+            
+        }
+
+        
+        //Controller
+        function changeCookie(cookieId){ //tar imot index argmnt
+            
+            chosenCookie=cookieId  //tildeler value til chosenCookie (viser tekst i cookieDisplayDiv ut i fra hvilken button du trykker på)
+            showDisplay();
+        }
+        
+        
+        function showCookieInput() {
+
+            let input1 = '';
+            let input2 = `<label for="cookieName">Cookie name</label>  <input type=text onchange="addNewCookieName(this.value)"> <br/>
+                          <label for="cookieFlavor">Flavor</label> <input type=text onchange="addNewCookieFlavor(this.value)"> <br/>
+                          <label for="cookieFilling">Filling</label> <input type=text onchange="addNewCookieFilling(this.value)"> <br/>
+                          <label for="cookieTexture">Texture</label> <input type=text onchange="addNewCookieTexture(this.value)"> <br/>
+                          <label for="cookiePrice">Price</label> <input type=number onchange="addNewCookiePrice(this.valueAsNumber)"> <br/>
+                          <button onclick="addNewCookie()">Add new cookie to menu</button>`
+                          ;
+
+            (currentInput == input2 ? currentInput = input1 : currentInput = input2 );
+            showDisplay(); 
+        }
+
+        function addNewCookieName (inputName){
+            newCookieInfo.name = inputName
+        }
+        function addNewCookieFlavor (inputFlavor){
+            newCookieInfo.flavor = inputFlavor
+        }
+        function addNewCookieFilling (inputFilling){
+            newCookieInfo.filling = inputFilling
+        }
+        function addNewCookieTexture (inputTexture){
+            newCookieInfo.texture = inputTexture
+        }
+        function addNewCookiePrice (inputPrice){
+            newCookieInfo.price = inputPrice
+        }
+        function addNewCookie () {
+            let cookieToPush = newCookieInfo;
+            cookies.push(cookieToPush);
+            let newBtn = `<button>Show ${cookies[cookies.length -1].name}</button>`
+            cookieBtns.push(newBtn);
+            chosenCookie = cookies.length -1;
+
+            showDisplay();            
+        }
+
+
+        
+        /*cookie input info vises i cookieDisplayet
+        ny cookie knapp inn i buttons array og vises på skjerm
+        */
+        
+        
+        /*3 buttons skal alltid vises
+            en knapp skal legges til per new cookie*/
+        /*
+
+
+
+Ideer:
+
+add to cart funksjon (legge til og trekke fra arrays)
+
+show cart funksjon (loop)
+
+create your own cookie
+- legge på bilder og pris 
+
+get random cookie
+- randomize alle ting som kan puttes på og topping/filling
+
+
+//cookie chomp function!!!
+
+*/
+
+
+/*
+        /*3 forskjellige cookies
+        hver cookie har 3 relaterte detaljer
+        1 array med 3 cookies i, der hver av cookiesene er et eget objekt 
+        første linje er navn på cookie, pris, farge, filling*/
+
+        /*kjøpefunksjon
+        wallet
+        display cookie først, så kan man trykke på en "kjøp" knapp
+        bought items liste/array som viser hva man har kjøpt og antall kjøpt.
+        temporary money spent variabel
+        money spent variabel*/
+
+        
+
+
+//show menu 
+
+
+    </script>
+</body>
+</html>
+
